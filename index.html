@@ -15,9 +15,40 @@
     <title>Odin Tic-Tac-Toe</title>
   </head>
   <body>
-    <header>Header</header>
+    <header>
+      <h1>Tic-Tac-Toe</h1>
+    </header>
     <main>
-      <p id="winnerText"></p>
+      <h2>Interact below to start and configure your game!</h2>
+      <div id="gameContainer">
+        <div id="player1Section" class="playerSection">
+          <!-- TODO: Maybe the below tags need id's OR data attributes(?) to make it easier to edit -->
+          <p class="playerName">Player 1</p>
+          <p class="winLabel">Wins: <span class="winNumber">0</span></p>
+          <p class="playerMarker">X</p>
+          <button id="player1MarkerBtn">Change Marker</button>
+        </div>
+        <div id="gameBoardSection">
+          <div id="gameBoard">
+            <div id="gameBoardCol1" class="gameBoardCell">1</div>
+            <div id="gameBoardCol2" class="gameBoardCell">2</div>
+            <div id="gameBoardCol3" class="gameBoardCell">3</div>
+            <div id="gameBoardCol4" class="gameBoardCell">4</div>
+            <div id="gameBoardCol5" class="gameBoardCell">5</div>
+            <div id="gameBoardCol6" class="gameBoardCell">6</div>
+            <div id="gameBoardCol7" class="gameBoardCell">7</div>
+            <div id="gameBoardCol8" class="gameBoardCell">8</div>
+            <div id="gameBoardCol9" class="gameBoardCell">9</div>
+          </div>
+        </div>
+        <div id="player2Section" class="playerSection">
+          <p class="playerName">Player 2</p>
+          <p class="winLabel">Wins: <span class="winNumber">0</span></p>
+          <p class="playerMarker">O</p>
+          <button id="player2MarkerBtn">Change Marker</button>
+        </div>
+        <p id="winnerText"></p>
+      </div>
     </main>
     <footer>
       <p>

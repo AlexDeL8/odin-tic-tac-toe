@@ -17,7 +17,7 @@ const player1 = Player("Player 1", "X");
 const player2 = Player("Player 2", "O");
 
 // SINGLETONS
-const Gameboard = (() => {
+const GameBoard = (() => {
     let gameboard = [
         [null, null, null],
         [null, null, null],
@@ -93,15 +93,15 @@ const Game = ((player1, player2) => {
         const currentPlayer = player1Turn ? player1 : player2;
         const marker = currentPlayer.marker
         let [row, col] = prompt(`${currentPlayer.name}: Enter {row} {col} to fill cell`).split(' ');
-        let validMove = Gameboard.updateBoard(row, col, marker);
+        let validMove = GameBoard.updateBoard(row, col, marker);
 
         while(!validMove) {
             [row, col] = prompt(`${currentPlayer.name}: That cell is already filled, choose another.`).split(' ');
-            validMove = Gameboard.updateBoard(row, col, marker);
+            validMove = GameBoard.updateBoard(row, col, marker);
         }
         player1Turn = !player1Turn
         turns++
-        if(Gameboard.checkWin(currentPlayer.marker)) {
+        if(GameBoard.checkWin(currentPlayer.marker)) {
             winner = currentPlayer.name
         } else if(turns === 9) {
             winner = "Tie"
