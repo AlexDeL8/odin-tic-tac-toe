@@ -28,7 +28,7 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 body {
-    font-family: system-ui;
+    font-family: Chalkduster, fantasy, system-ui;
 	line-height: 1;
     height: 100dvh;
     display: flex;
@@ -51,16 +51,32 @@ table {
 	border-spacing: 0;
 }
 
-h1 {
+button {
+	font-family: Chalkduster, fantasy, system-ui;
+	background-color: #FFFFFF;
+	color: #000000;
+	border-radius: 4px;
+	font-size: 0.75rem;
+	padding: 0.5rem;
+}
 
+button:hover {
+	cursor: pointer;
+	background-color: #000000;
+	color: #FFFFFF;
+}
+
+button:active {
+	background-color: #777777;
+}
+
+h1 {
+	font-size: 2.25rem;
+	font-weight: bold;
 }
 
 h2 {
-
-}
-
-p {
-
+	font-size: 1.25rem;
 }
 
 /* ------ HEADER ------ */
@@ -80,13 +96,10 @@ main {
 	align-items: center;
 }
 
-#gameContainer {
-	flex-grow: 1;
-}
-
 /* ------ MAIN > GAME ------ */
 #gameContainer {
-	width: 100%;
+	width: 85%;
+	flex-grow: 1;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
@@ -97,6 +110,34 @@ main {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	row-gap: 0.5rem;
+}
+
+.playerInfoContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.playerName {
+	font-weight: bold;
+	font-size: 1.75rem;
+	margin-bottom: 1rem;
+}
+
+.playerWinsLabel {
+	
+}
+
+.playerMarkerContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	row-gap: 0.25rem;
+}
+
+.playerMarker {
+	font-size: 4.5rem;
 }
 
 #gameBoardSection {
