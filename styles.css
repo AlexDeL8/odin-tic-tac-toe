@@ -1,5 +1,9 @@
 :root {
-    
+    --player1-primary-color: #BE96C3;
+	--player2-primary-color: #87A6B5;
+	--text-primary-color: #000000;
+	--button-text-color: #000000;
+	--button-background-color: #FFFFFF;
 }
 
 html, body, div, span, applet, object, iframe,
@@ -53,8 +57,8 @@ table {
 
 button {
 	font-family: Chalkduster, fantasy, system-ui;
-	background-color: #FFFFFF;
-	color: #000000;
+	background-color: var(--button-background-color);
+	color: var(--button-text-color);
 	border-radius: 4px;
 	font-size: 0.75rem;
 	padding: 0.5rem;
@@ -62,8 +66,8 @@ button {
 
 button:hover {
 	cursor: pointer;
-	background-color: #000000;
-	color: #FFFFFF;
+	background-color: var(--button-text-color);
+	color: var(--button-background-color);
 }
 
 button:active {
@@ -81,11 +85,13 @@ h2 {
 
 /* ------ HEADER ------ */
 header {
-	height: 35px;
+	/* height: 35px; */
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    padding: 1rem;
+    flex-direction: column;
+    align-items: center;
+	justify-content: center;
+	padding: 0.75rem;
+	row-gap: 1.25rem;
 }
 
 /* ------ MAIN ------ */
@@ -98,12 +104,13 @@ main {
 
 /* ------ MAIN > GAME ------ */
 #gameContainer {
-	width: 85%;
+	/* width: 85%; */
 	flex-grow: 1;
 	display: flex;
 	flex-direction: row;
-	justify-content: space-around;
+	justify-content: center;
 	align-items: center;
+	column-gap: 6rem;
 }
 
 .playerSection {
@@ -125,6 +132,14 @@ main {
 	margin-bottom: 1rem;
 }
 
+#player1Name {
+	color: var(--player1-primary-color);
+}
+
+#player2Name {
+	color:var(--player2-primary-color)
+}
+
 .playerWinsLabel {
 	
 }
@@ -140,19 +155,45 @@ main {
 	font-size: 4.5rem;
 }
 
+#player1Marker {
+	color: var(--player1-primary-color);
+}
+
+#player2Marker {
+	color: var(--player2-primary-color);
+}
+
 #gameBoardSection {
-	flex-grow: 1;
+	height: 100%;
 	display: flex;
-	flex-direction: row;
-	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-around;
 }
 
 #gameBoard {
 	display: grid;
-	grid-template-rows: repeat(3, 100px);
-	grid-template-columns: repeat(3, 100px);
+	grid-template-rows: repeat(3, 125px);
+	grid-template-columns: repeat(3, 125px);
 	justify-items: center;
 	align-items: center;
+}
+
+#winnerInfo {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	row-gap: 0.5rem;
+	margin-bottom: 1rem;
+}
+
+#winnerLabel {
+	font-weight: bold;
+}
+
+#winnerName {
+	font-size: 1.5rem;
 }
 
 .gameBoardCell {
@@ -163,6 +204,10 @@ main {
 	justify-content: center;
 	align-items: center;
 	border: 2px solid black;
+}
+
+.gameBoardCell:hover {
+	cursor: pointer;
 }
 
 /* ------ FOOTER ------ */

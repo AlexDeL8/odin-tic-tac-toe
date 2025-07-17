@@ -17,49 +17,52 @@
   <body>
     <header>
       <h1>Tic-Tac-Toe</h1>
+      <h2>Interact below to start and configure your game!</h2>
     </header>
     <main>
-      <h2>Interact below to start and configure your game!</h2>
       <div id="gameContainer">
         <div id="player1Section" class="playerSection">
           <!-- TODO: Maybe the below tags need id's OR data attributes(?) to make it easier to edit -->
           <div class="playerInfoContainer">
-            <p class="playerName">Player 1</p>
+            <p id="player1Name" class="playerName">Player 1</p>
             <p class="playerWinsLabel">
               Wins: <span class="playerWinsNumber">0</span>
             </p>
           </div>
           <div class="playerMarkerContainer">
-            <p class="playerMarker">X</p>
+            <p id="player1Marker" class="playerMarker">X</p>
             <button id="player1MarkerBtn">Change Marker</button>
           </div>
         </div>
         <div id="gameBoardSection">
           <div id="gameBoard">
-            <div id="gameBoardCol1" class="gameBoardCell">1</div>
-            <div id="gameBoardCol2" class="gameBoardCell">2</div>
-            <div id="gameBoardCol3" class="gameBoardCell">3</div>
-            <div id="gameBoardCol4" class="gameBoardCell">4</div>
-            <div id="gameBoardCol5" class="gameBoardCell">5</div>
-            <div id="gameBoardCol6" class="gameBoardCell">6</div>
-            <div id="gameBoardCol7" class="gameBoardCell">7</div>
-            <div id="gameBoardCol8" class="gameBoardCell">8</div>
-            <div id="gameBoardCol9" class="gameBoardCell">9</div>
+            <div id="gameBoardCol1" class="gameBoardCell"></div>
+            <div id="gameBoardCol2" class="gameBoardCell"></div>
+            <div id="gameBoardCol3" class="gameBoardCell"></div>
+            <div id="gameBoardCol4" class="gameBoardCell"></div>
+            <div id="gameBoardCol5" class="gameBoardCell"></div>
+            <div id="gameBoardCol6" class="gameBoardCell"></div>
+            <div id="gameBoardCol7" class="gameBoardCell"></div>
+            <div id="gameBoardCol8" class="gameBoardCell"></div>
+            <div id="gameBoardCol9" class="gameBoardCell"></div>
           </div>
         </div>
         <div id="player2Section" class="playerSection">
           <div class="playerInfoContainer">
-            <p class="playerName">Player 2</p>
+            <p id="player2Name" class="playerName">Player 2</p>
             <p class="playerWinsLabel">
               Wins: <span class="playerWinsNumber">0</span>
             </p>
           </div>
           <div class="playerMarkerContainer">
-            <p class="playerMarker">O</p>
+            <p id="player2Marker" class="playerMarker">O</p>
             <button id="player2MarkerBtn">Change Marker</button>
           </div>
         </div>
-        <p id="winnerText"></p>
+      </div>
+      <div id="winnerInfo">
+        <p id="winnerLabel"></p>
+        <p id="winnerName"></p>
       </div>
     </main>
     <footer>
