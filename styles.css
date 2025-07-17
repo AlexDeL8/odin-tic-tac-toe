@@ -1,5 +1,9 @@
 :root {
-    
+    --player1-primary-color: #BE96C3;
+	--player2-primary-color: #87A6B5;
+	--text-primary-color: #000000;
+	--button-text-color: #000000;
+	--button-background-color: #FFFFFF;
 }
 
 html, body, div, span, applet, object, iframe,
@@ -28,11 +32,11 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 body {
-    font-family: system-ui;
+    font-family: Chalkduster, fantasy, system-ui;
 	line-height: 1;
     height: 100dvh;
-    /* display: flex;
-    flex-direction: column; */
+    display: flex;
+    flex-direction: column;
 
 }
 ol, ul {
@@ -51,13 +55,167 @@ table {
 	border-spacing: 0;
 }
 
+button {
+	font-family: Chalkduster, fantasy, system-ui;
+	background-color: var(--button-background-color);
+	color: var(--button-text-color);
+	border-radius: 4px;
+	font-size: 0.75rem;
+	padding: 0.5rem;
+}
+
+button:hover {
+	cursor: pointer;
+	background-color: var(--button-text-color);
+	color: var(--button-background-color);
+}
+
+button:active {
+	background-color: #777777;
+}
+
+h1 {
+	font-size: 2.25rem;
+	font-weight: bold;
+}
+
+h2 {
+	font-size: 1.25rem;
+}
+
+/* ------ HEADER ------ */
+header {
+	/* height: 35px; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+	justify-content: center;
+	padding: 0.75rem;
+	row-gap: 1.25rem;
+}
+
+/* ------ MAIN ------ */
+main {
+	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+/* ------ MAIN > GAME ------ */
+#gameContainer {
+	/* width: 85%; */
+	flex-grow: 1;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	column-gap: 6rem;
+}
+
+.playerSection {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	row-gap: 0.5rem;
+}
+
+.playerInfoContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.playerName {
+	font-weight: bold;
+	font-size: 1.75rem;
+	margin-bottom: 1rem;
+}
+
+#player1Name {
+	color: var(--player1-primary-color);
+}
+
+#player2Name {
+	color:var(--player2-primary-color)
+}
+
+.playerWinsLabel {
+	
+}
+
+.playerMarkerContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	row-gap: 0.25rem;
+}
+
+.playerMarker {
+	font-size: 4.5rem;
+}
+
+#player1Marker {
+	color: var(--player1-primary-color);
+}
+
+#player2Marker {
+	color: var(--player2-primary-color);
+}
+
+#gameBoardSection {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-around;
+}
+
+#gameBoard {
+	display: grid;
+	grid-template-rows: repeat(3, 125px);
+	grid-template-columns: repeat(3, 125px);
+	justify-items: center;
+	align-items: center;
+}
+
+#winnerInfo {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	row-gap: 0.5rem;
+	margin-bottom: 1rem;
+}
+
+#winnerLabel {
+	font-weight: bold;
+}
+
+#winnerName {
+	font-size: 1.5rem;
+}
+
+.gameBoardCell {
+	height: 100%;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	border: 2px solid black;
+}
+
+.gameBoardCell:hover {
+	cursor: pointer;
+}
+
 /* ------ FOOTER ------ */
 footer {
     height: 35px;
     display: flex;
     flex-direction: row;
     justify-content: center;
-    background-color: var(--main-background-color);
     padding: 1rem;
 }
 

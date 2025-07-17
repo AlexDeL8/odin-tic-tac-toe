@@ -15,9 +15,55 @@
     <title>Odin Tic-Tac-Toe</title>
   </head>
   <body>
-    <header>Header</header>
+    <header>
+      <h1>Tic-Tac-Toe</h1>
+      <h2>Interact below to start and configure your game!</h2>
+    </header>
     <main>
-      <p id="winnerText"></p>
+      <div id="gameContainer">
+        <div id="player1Section" class="playerSection">
+          <!-- TODO: Maybe the below tags need id's OR data attributes(?) to make it easier to edit -->
+          <div class="playerInfoContainer">
+            <p id="player1Name" class="playerName">Player 1</p>
+            <p class="playerWinsLabel">
+              Wins: <span class="playerWinsNumber">0</span>
+            </p>
+          </div>
+          <div class="playerMarkerContainer">
+            <p id="player1Marker" class="playerMarker">X</p>
+            <button id="player1MarkerBtn">Change Marker</button>
+          </div>
+        </div>
+        <div id="gameBoardSection">
+          <div id="gameBoard">
+            <div id="gameBoardCol1" class="gameBoardCell"></div>
+            <div id="gameBoardCol2" class="gameBoardCell"></div>
+            <div id="gameBoardCol3" class="gameBoardCell"></div>
+            <div id="gameBoardCol4" class="gameBoardCell"></div>
+            <div id="gameBoardCol5" class="gameBoardCell"></div>
+            <div id="gameBoardCol6" class="gameBoardCell"></div>
+            <div id="gameBoardCol7" class="gameBoardCell"></div>
+            <div id="gameBoardCol8" class="gameBoardCell"></div>
+            <div id="gameBoardCol9" class="gameBoardCell"></div>
+          </div>
+        </div>
+        <div id="player2Section" class="playerSection">
+          <div class="playerInfoContainer">
+            <p id="player2Name" class="playerName">Player 2</p>
+            <p class="playerWinsLabel">
+              Wins: <span class="playerWinsNumber">0</span>
+            </p>
+          </div>
+          <div class="playerMarkerContainer">
+            <p id="player2Marker" class="playerMarker">O</p>
+            <button id="player2MarkerBtn">Change Marker</button>
+          </div>
+        </div>
+      </div>
+      <div id="winnerInfo">
+        <p id="winnerLabel"></p>
+        <p id="winnerName"></p>
+      </div>
     </main>
     <footer>
       <p>
