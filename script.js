@@ -5,6 +5,8 @@ const MAX_MOVES = 9;
 const gameBoard = document.getElementById("gameBoard");
 const gameCells = document.querySelectorAll(".gameBoardCell");
 const newGameBtn = document.getElementById("newGameBtn");
+const player1Wins = document.getElementById("player1WinsNumber");
+const player2Wins = document.getElementById("player2WinsNumber");
 const winnerLabel = document.getElementById("winnerLabel");
 const winnerName = document.getElementById("winnerName");
 
@@ -12,10 +14,10 @@ const winnerName = document.getElementById("winnerName");
 const Player = (name, marker) => {
     const id = crypto.randomUUID();
     let numOfWins = 0;
-
     const getId = () => id;
     const getWins = () => numOfWins;
     const incrementWins = () => ++numOfWins;
+    // TODO: Update marker and display
     
     return { name, marker, getId, getWins, incrementWins };
 }
@@ -99,22 +101,31 @@ const GameBoard = (() => {
 })();
 
 const GameDisplayController = (() => {
-    const updateWinner = (playerName = null) => {
-        if(playerName === null) {
+    const updateWinner = (player = null) => {
+        if(player === null) {
             // Reset and hide text
             winnerLabel.style.display = 'none';
             winnerLabel.innerText = '';
             winnerName.style.display = 'none';
             winnerName.innerText = '';
-        } else if(playerName === 'Tie') {
+        } else if(player === 'Tie') {
             winnerLabel.innerText = 'Tie!'
             winnerLabel.style.display = 'block';
         } else {
             // Set and show text
+            updateWins();
             winnerLabel.innerText = 'Winner: '
             winnerLabel.style.display = 'block';
-            winnerName.innerText = playerName;
+            winnerName.innerText = player.name;
             winnerName.style.display = 'block';
+        }
+    };
+
+    const updateWins = () => {
+        if(Game.getPlayer1Turn()) {
+            player1Wins.innerText = player1.getWins();
+        } else {
+            player2Wins.innerText = player2.getWins();
         }
     };
 
@@ -200,7 +211,8 @@ const Game = ((player1, player2) => {
         }
         GameDisplayController.fillCell(cellId, player.marker);
         if(GameBoard.checkWin(player.marker)) { 
-            winner = player.name;
+            winner = player;
+            player.incrementWins();
             GameDisplayController.updateWinner(winner);
             endGame();
         }

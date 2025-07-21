@@ -210,6 +210,7 @@ main {
 	margin-bottom: 1rem;
 }
 
+/* TODO: When winner appears, don't have it shift board up, negative margins maybe */
 #winnerLabel {
 	font-weight: bold;
 }
