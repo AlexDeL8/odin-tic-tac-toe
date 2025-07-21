@@ -181,11 +181,11 @@ main {
 	font-size: 4.5rem;
 }
 
-#player1Marker {
+.player1Marker {
 	color: var(--player1-primary-color);
 }
 
-#player2Marker {
+.player2Marker {
 	color: var(--player2-primary-color);
 }
 
