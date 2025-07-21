@@ -2,8 +2,10 @@
     --player1-primary-color: #BE96C3;
 	--player2-primary-color: #87A6B5;
 	--text-primary-color: #000000;
-	--button-text-color: #000000;
-	--button-background-color: #FFFFFF;
+	--button-primary-text-color: #FFFFFF;
+	--button-primary-background-color: #000000;
+	--button-secondary-text-color: #000000;
+	--button-secondary-background-color: #FFFFFF;
 }
 
 html, body, div, span, applet, object, iframe,
@@ -57,22 +59,39 @@ table {
 
 button {
 	font-family: Chalkduster, fantasy, system-ui;
-	background-color: var(--button-background-color);
-	color: var(--button-text-color);
 	border-radius: 4px;
 	font-size: 0.75rem;
 	padding: 0.5rem;
 }
 
+.primaryBtn {
+	background-color: var(--button-primary-background-color);
+	color: var(--button-primary-text-color);
+}
+
+.secondaryBtn {
+	background-color: var(--button-secondary-background-color);
+	color: var(--button-secondary-text-color);
+}
+
 button:hover {
 	cursor: pointer;
-	background-color: var(--button-text-color);
-	color: var(--button-background-color);
+}
+
+.primaryBtn:hover {
+	background-color: var(--button-primary-text-color);
+	color: var(--button-primary-background-color);
+}
+
+.secondaryBtn:hover {
+	background-color: var(--button-secondary-text-color);
+	color: var(--button-secondary-background-color);
 }
 
 button:active {
 	background-color: #777777;
 }
+
 
 button:disabled {
 	background-color: #777777;
@@ -81,6 +100,8 @@ button:disabled {
 
 button:disabled:hover {
 	cursor: not-allowed;
+	background-color: #777777;
+	color: var(--button-secondary-text-color);
 }
 
 h1 {
@@ -94,6 +115,7 @@ h2 {
 
 /* ------ HEADER ------ */
 header {
+	/* height: 35px; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -112,6 +134,7 @@ main {
 
 /* ------ MAIN > GAME ------ */
 #gameContainer {
+	/* width: 85%; */
 	flex-grow: 1;
 	display: flex;
 	flex-direction: row;
@@ -158,11 +181,11 @@ main {
 	font-size: 4.5rem;
 }
 
-.player1Marker {
+#player1Marker {
 	color: var(--player1-primary-color);
 }
 
-.player2Marker {
+#player2Marker {
 	color: var(--player2-primary-color);
 }
 
@@ -182,8 +205,21 @@ main {
 	align-items: center;
 }
 
-#gameBoard.disabled:hover > * {
-	cursor: not-allowed;
+#winnerInfo {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	row-gap: 0.5rem;
+	margin-bottom: 1rem;
+}
+
+#winnerLabel {
+	font-weight: bold;
+}
+
+#winnerName {
+	font-size: 1.5rem;
 }
 
 .gameBoardCell {
@@ -198,25 +234,6 @@ main {
 
 .gameBoardCell:hover {
 	cursor: pointer;
-}
-
-/* ------ MAIN > WINNER INFO ------ */
-#gameInfo {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	row-gap: 0.5rem;
-	margin-bottom: 1rem;
-}
-
-/* TODO: When winner appears, don't have it shift board up, negative margins maybe */
-#winnerLabel {
-	font-weight: bold;
-}
-
-#winnerName {
-	font-size: 1.5rem;
 }
 
 /* ------ FOOTER ------ */

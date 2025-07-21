@@ -5,8 +5,11 @@ const MAX_MOVES = 9;
 const gameBoard = document.getElementById("gameBoard");
 const gameCells = document.querySelectorAll(".gameBoardCell");
 const newGameBtn = document.getElementById("newGameBtn");
+
 const player1Wins = document.getElementById("player1WinsNumber");
 const player2Wins = document.getElementById("player2WinsNumber");
+const markerBtns = document.querySelectorAll(".changeMarkerBtn");
+
 const winnerLabel = document.getElementById("winnerLabel");
 const winnerName = document.getElementById("winnerName");
 
@@ -160,6 +163,20 @@ const GameDisplayController = (() => {
         newGameBtn.disabled = true;
     };
 
+    const enableMarkerBtns = () => {
+        markerBtns.forEach(btn => {
+            btn.ariaDisabled = false;
+            btn.disabled = false;
+        });
+    };
+
+    const disableMarkerBtns = () => {
+        markerBtns.forEach(btn => {
+            btn.ariaDisabled = true;
+            btn.disabled = true;
+        });
+    };
+
     return { 
         updateWinner, 
         fillCell,
@@ -167,7 +184,9 @@ const GameDisplayController = (() => {
         enableGameBoard, 
         disableGameBoard, 
         enableNewGameBtn, 
-        disableNewGameBtn 
+        disableNewGameBtn,
+        enableMarkerBtns,
+        disableMarkerBtns 
     };
 })();
 
@@ -188,6 +207,7 @@ const Game = ((player1, player2) => {
         turns = 0;
         gameStarted = true;
         GameDisplayController.disableNewGameBtn();
+        GameDisplayController.disableMarkerBtns();
         GameDisplayController.enableGameBoard();
         return;
     };
@@ -197,6 +217,7 @@ const Game = ((player1, player2) => {
         gameStarted = false;
         turns = 0;
         GameDisplayController.enableNewGameBtn();
+        GameDisplayController.enableMarkerBtns();
         return;
     };
 
@@ -245,13 +266,19 @@ gameBoard.addEventListener("click", (event) => {
     }
 });
 
-gameCells.forEach((cell) => {
+gameCells.forEach(cell => {
     cell.addEventListener("click", (event) => {
         if(gameBoard.classList.contains("disabled")) {
             return;
         }
         const currentPlayer = Game.getPlayer1Turn() ? player1 : player2;
         Game.makeMove(cell.dataset.cellRow, cell.dataset.cellCol, currentPlayer, cell.id);
+    });
+});
+
+markerBtns.forEach(btn => {
+    btn.addEventListener("click", (event) => {
+        console.log(event.target.id)
     });
 });
 
