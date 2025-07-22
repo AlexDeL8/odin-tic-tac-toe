@@ -115,7 +115,6 @@ h2 {
 
 /* ------ HEADER ------ */
 header {
-	/* height: 35px; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -234,6 +233,20 @@ main {
 
 .gameBoardCell:hover {
 	cursor: pointer;
+}
+
+#gameInfo {
+	height: 85px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	row-gap: 0.5rem;
+}
+
+#gameInfoWinner {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 /* ------ FOOTER ------ */
