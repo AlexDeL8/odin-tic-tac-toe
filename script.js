@@ -294,8 +294,9 @@ gameCells.forEach(cell => {
 });
 
 markerBtns.forEach(btn => {
-    btn.addEventListener("click", (event) => {
+    btn.addEventListener("click", () => {
         const newMarker = prompt("Enter a new marker");
+        console.log(btn.dataset.player)
         switch (btn.dataset.player) {
             case 'player1':
                 player1.setMarker(newMarker);
