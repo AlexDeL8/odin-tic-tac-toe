@@ -204,6 +204,10 @@ main {
 	align-items: center;
 }
 
+#gameBoard.disabled:hover > * {
+	cursor: not-allowed;
+}
+
 #winnerInfo {
 	display: flex;
 	flex-direction: column;

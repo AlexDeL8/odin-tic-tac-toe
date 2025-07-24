@@ -17,12 +17,24 @@ const winnerName = document.getElementById("winnerName");
 const Player = (name, marker) => {
     const id = crypto.randomUUID();
     let numOfWins = 0;
+    let playerMarker = marker;
+
     const getId = () => id;
     const getWins = () => numOfWins;
     const incrementWins = () => ++numOfWins;
-    // TODO: Update marker and display
+    // TODO: Not updating properly, need variable set?
+    const getMarker = () => playerMarker;
+    const setMarker = (newMarker) => playerMarker = newMarker;
     
-    return { name, marker, getId, getWins, incrementWins };
+    return { 
+        name, 
+        marker, 
+        getId, 
+        getWins, 
+        incrementWins,
+        getMarker,
+        setMarker
+    };
 }
 
 const player1 = Player("Player 1", "X");
@@ -134,7 +146,7 @@ const GameDisplayController = (() => {
 
     const fillCell = (elementId, marker) => {
         const cellElement = document.getElementById(elementId);
-        cellElement.classList.add('playerMarker', marker === player1.marker ? 'player1Marker' : 'player2Marker');
+        cellElement.classList.add('playerMarker', marker === player1.getMarker() ? 'player1Marker' : 'player2Marker');
         cellElement.innerText = marker
     };
 
@@ -143,7 +155,11 @@ const GameDisplayController = (() => {
             cell.innerText = null;
             cell.className = 'gameBoardCell';
         });
-    }
+    };
+
+    const updateMarker = (player, newMarker) => {
+        document.getElementById(`${player}MarkerDisplay`).innerText = newMarker;
+    };
 
     const enableGameBoard = () => {
         gameBoard.classList.remove("disabled");
@@ -181,6 +197,7 @@ const GameDisplayController = (() => {
         updateWinner, 
         fillCell,
         resetBoard,
+        updateMarker,
         enableGameBoard, 
         disableGameBoard, 
         enableNewGameBtn, 
@@ -226,12 +243,12 @@ const Game = ((player1, player2) => {
     };
 
     const makeMove = (row, col, player, cellId) => {
-        const validMove = GameBoard.updateBoard(row, col, player.marker);
+        const validMove = GameBoard.updateBoard(row, col, player.getMarker());
         if(!validMove) {
             return;
         }
-        GameDisplayController.fillCell(cellId, player.marker);
-        if(GameBoard.checkWin(player.marker)) { 
+        GameDisplayController.fillCell(cellId, player.getMarker());
+        if(GameBoard.checkWin(player.getMarker())) { 
             winner = player;
             player.incrementWins();
             GameDisplayController.updateWinner(winner);
@@ -267,7 +284,7 @@ gameBoard.addEventListener("click", (event) => {
 });
 
 gameCells.forEach(cell => {
-    cell.addEventListener("click", (event) => {
+    cell.addEventListener("click", () => {
         if(gameBoard.classList.contains("disabled")) {
             return;
         }
@@ -278,7 +295,20 @@ gameCells.forEach(cell => {
 
 markerBtns.forEach(btn => {
     btn.addEventListener("click", (event) => {
-        console.log(event.target.id)
+        const newMarker = prompt("Enter a new marker");
+        switch (btn.dataset.player) {
+            case 'player1':
+                player1.setMarker(newMarker);
+                GameDisplayController.updateMarker('player1', newMarker);
+                break;
+            case 'player2':
+                player2.setMarker(newMarker);
+                GameDisplayController.updateMarker('player2', newMarker);
+                break;
+            default:
+                console.error("Unknown player");
+                break;
+        }
     });
 });
 
