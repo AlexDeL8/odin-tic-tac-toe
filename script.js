@@ -20,9 +20,10 @@ const Player = (name, marker) => {
     let playerMarker = marker;
 
     const getId = () => id;
+
     const getWins = () => numOfWins;
     const incrementWins = () => ++numOfWins;
-    // TODO: Not updating properly, need variable set?
+
     const getMarker = () => playerMarker;
     const setMarker = (newMarker) => playerMarker = newMarker;
     
@@ -116,6 +117,7 @@ const GameBoard = (() => {
 })();
 
 const GameDisplayController = (() => {
+    // TODO: On win. highlight winning cells (highlight color TBD)
     const updateWinner = (player = null) => {
         if(player === null) {
             // Reset and hide text

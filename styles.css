@@ -6,6 +6,7 @@
 	--button-primary-background-color: #000000;
 	--button-secondary-text-color: #000000;
 	--button-secondary-background-color: #FFFFFF;
+	--disabled-color: #777777;
 }
 
 html, body, div, span, applet, object, iframe,
@@ -89,18 +90,18 @@ button:hover {
 }
 
 button:active {
-	background-color: #777777;
+	background-color: var(--disabled-color);
 }
 
 
 button:disabled {
-	background-color: #777777;
+	background-color: var(--disabled-color);
 	color: var(--button-text-color);
 }
 
 button:disabled:hover {
 	cursor: not-allowed;
-	background-color: #777777;
+	background-color: var(--disabled-color);
 	color: var(--button-secondary-text-color);
 }
 
@@ -176,6 +177,7 @@ main {
 	row-gap: 0.25rem;
 }
 
+/* TODO: When marker placed, make bounce type animation */
 .playerMarker {
 	font-size: 4.5rem;
 }
@@ -202,6 +204,10 @@ main {
 	grid-template-columns: repeat(3, 125px);
 	justify-items: center;
 	align-items: center;
+}
+
+#gameBoard.disabled > * {
+	background-color: var(--disabled-color);
 }
 
 #gameBoard.disabled:hover > * {
