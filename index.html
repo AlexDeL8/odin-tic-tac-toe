@@ -30,62 +30,70 @@
             </p>
           </div>
           <div class="playerMarkerContainer">
-            <p class="playerMarker player1Marker">X</p>
-            <button id="player1MarkerBtn">Change Marker</button>
+            <p id="player1MarkerDisplay" class="playerMarker player1Marker">
+              X
+            </p>
+            <button
+              id="player1MarkerBtn"
+              class="secondaryBtn changeMarkerBtn"
+              data-player="player1"
+            >
+              Change Marker
+            </button>
           </div>
         </div>
         <div id="gameBoardSection">
           <div id="gameBoard" class="disabled">
             <div
-              id="gameBoardCol1"
+              id="gameBoardCell1"
               data-cell-row="0"
               data-cell-col="0"
               class="gameBoardCell"
             ></div>
             <div
-              id="gameBoardCol2"
+              id="gameBoardCell2"
               data-cell-row="0"
               data-cell-col="1"
               class="gameBoardCell"
             ></div>
             <div
-              id="gameBoardCol3"
+              id="gameBoardCell3"
               data-cell-row="0"
               data-cell-col="2"
               class="gameBoardCell"
             ></div>
             <div
-              id="gameBoardCol4"
+              id="gameBoardCell4"
               data-cell-row="1"
               data-cell-col="0"
               class="gameBoardCell"
             ></div>
             <div
-              id="gameBoardCol5"
+              id="gameBoardCell5"
               data-cell-row="1"
               data-cell-col="1"
               class="gameBoardCell"
             ></div>
             <div
-              id="gameBoardCol6"
+              id="gameBoardCell6"
               data-cell-row="1"
               data-cell-col="2"
               class="gameBoardCell"
             ></div>
             <div
-              id="gameBoardCol7"
+              id="gameBoardCell7"
               data-cell-row="2"
               data-cell-col="0"
               class="gameBoardCell"
             ></div>
             <div
-              id="gameBoardCol8"
+              id="gameBoardCell8"
               data-cell-row="2"
               data-cell-col="1"
               class="gameBoardCell"
             ></div>
             <div
-              id="gameBoardCol9"
+              id="gameBoardCell9"
               data-cell-row="2"
               data-cell-col="2"
               class="gameBoardCell"
@@ -101,15 +109,25 @@
             </p>
           </div>
           <div class="playerMarkerContainer">
-            <p class="playerMarker player2Marker">O</p>
-            <button id="player2MarkerBtn">Change Marker</button>
+            <p id="player2MarkerDisplay" class="playerMarker player2Marker">
+              O
+            </p>
+            <button
+              id="player2MarkerBtn"
+              class="secondaryBtn changeMarkerBtn"
+              data-player="player2"
+            >
+              Change Marker
+            </button>
           </div>
         </div>
       </div>
       <div id="gameInfo">
-        <button id="newGameBtn">New Game</button>
-        <p id="winnerLabel"></p>
-        <p id="winnerName"></p>
+        <button id="newGameBtn" class="primaryBtn">New Game</button>
+        <div id="gameInfoWinner">
+          <p id="winnerLabel"></p>
+          <p id="winnerName"></p>
+        </div>
       </div>
     </main>
     <footer>

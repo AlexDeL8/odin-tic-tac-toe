@@ -5,8 +5,11 @@ const MAX_MOVES = 9;
 const gameBoard = document.getElementById("gameBoard");
 const gameCells = document.querySelectorAll(".gameBoardCell");
 const newGameBtn = document.getElementById("newGameBtn");
+
 const player1Wins = document.getElementById("player1WinsNumber");
 const player2Wins = document.getElementById("player2WinsNumber");
+const markerBtns = document.querySelectorAll(".changeMarkerBtn");
+
 const winnerLabel = document.getElementById("winnerLabel");
 const winnerName = document.getElementById("winnerName");
 
@@ -14,12 +17,25 @@ const winnerName = document.getElementById("winnerName");
 const Player = (name, marker) => {
     const id = crypto.randomUUID();
     let numOfWins = 0;
+    let playerMarker = marker;
+
     const getId = () => id;
+
     const getWins = () => numOfWins;
     const incrementWins = () => ++numOfWins;
-    // TODO: Update marker and display
+
+    const getMarker = () => playerMarker;
+    const setMarker = (newMarker) => playerMarker = newMarker;
     
-    return { name, marker, getId, getWins, incrementWins };
+    return { 
+        name, 
+        marker, 
+        getId, 
+        getWins, 
+        incrementWins,
+        getMarker,
+        setMarker
+    };
 }
 
 const player1 = Player("Player 1", "X");
@@ -55,13 +71,17 @@ const GameBoard = (() => {
     };
 
     const checkWin = (marker) => {
+        let winningCells = [];
         const checkHorizontal = () => {
-            for(let row of gameBoard) {
-                if(row.every(value => value === marker)) {
+            for(let row = 0; row < gameBoard.length; row++) {
+                if(gameBoard[row].every(value => value === marker)) {
+                    winningCells.push([row, 0], [row, 1], [row, 2]);
+                    GameDisplayController.showWinningCells(winningCells);
                     Game.endGame();
                     return true;
                 }
             }
+            winningCells = [];
             return false;
         };
 
@@ -69,23 +89,35 @@ const GameBoard = (() => {
             for(let col = 0; col < gameBoard[0].length; col++) {
                 for(let row = 0; row < gameBoard.length; row++) {
                     if(gameBoard[row][col] !== marker) {
+                        winningCells = [];
                         break;
                     }
+                    winningCells.push([row, col]);
                     if(row === 2) {
+                        GameDisplayController.showWinningCells(winningCells);
                         Game.endGame();
                         return true;
                     }
                 }
             }
+            winningCells = [];
             return false;
         };
 
         const checkDiagonal = () => {
-            if((gameBoard[0][0] === marker && gameBoard[1][1] === marker && gameBoard[2][2] === marker) || 
-            (gameBoard[0][2] === marker && gameBoard[1][1] === marker && gameBoard[2][0] === marker)) {
+            if(gameBoard[0][0] === marker && gameBoard[1][1] === marker && gameBoard[2][2] === marker) {
+                winningCells = [[0,0], [1,1], [2,2]];
+                GameDisplayController.showWinningCells(winningCells);
+                Game.endGame();
+                return true;
+            } 
+            if (gameBoard[0][2] === marker && gameBoard[1][1] === marker && gameBoard[2][0] === marker) {
+                winningCells = [[0,2], [1,1], [2,0]];
+                GameDisplayController.showWinningCells(winningCells);
                 Game.endGame();
                 return true;
             }
+            winningCells = [];
             return false;
         };
 
@@ -131,16 +163,28 @@ const GameDisplayController = (() => {
 
     const fillCell = (elementId, marker) => {
         const cellElement = document.getElementById(elementId);
-        cellElement.classList.add('playerMarker', marker === player1.marker ? 'player1Marker' : 'player2Marker');
+        cellElement.classList.add('playerMarker', marker === player1.getMarker() ? 'player1Marker' : 'player2Marker');
         cellElement.innerText = marker
+    };
+
+    const showWinningCells = (winningCells) => {
+        winningCells.forEach(cell => {
+            const winningCellElement = document.querySelector(`[data-cell-row="${cell[0]}"][data-cell-col="${cell[1]}"]`);
+            winningCellElement.classList.add('winningCell');
+        });
     };
 
     const resetBoard = () => {
         gameCells.forEach(cell => {
             cell.innerText = null;
             cell.className = 'gameBoardCell';
+            cell.classList.remove('winningCell');
         });
-    }
+    };
+
+    const updateMarker = (player, newMarker) => {
+        document.getElementById(`${player}MarkerDisplay`).innerText = newMarker;
+    };
 
     const enableGameBoard = () => {
         gameBoard.classList.remove("disabled");
@@ -160,14 +204,32 @@ const GameDisplayController = (() => {
         newGameBtn.disabled = true;
     };
 
+    const enableMarkerBtns = () => {
+        markerBtns.forEach(btn => {
+            btn.ariaDisabled = false;
+            btn.disabled = false;
+        });
+    };
+
+    const disableMarkerBtns = () => {
+        markerBtns.forEach(btn => {
+            btn.ariaDisabled = true;
+            btn.disabled = true;
+        });
+    };
+
     return { 
         updateWinner, 
         fillCell,
+        showWinningCells,
         resetBoard,
+        updateMarker,
         enableGameBoard, 
         disableGameBoard, 
         enableNewGameBtn, 
-        disableNewGameBtn 
+        disableNewGameBtn,
+        enableMarkerBtns,
+        disableMarkerBtns 
     };
 })();
 
@@ -188,6 +250,7 @@ const Game = ((player1, player2) => {
         turns = 0;
         gameStarted = true;
         GameDisplayController.disableNewGameBtn();
+        GameDisplayController.disableMarkerBtns();
         GameDisplayController.enableGameBoard();
         return;
     };
@@ -197,6 +260,7 @@ const Game = ((player1, player2) => {
         gameStarted = false;
         turns = 0;
         GameDisplayController.enableNewGameBtn();
+        GameDisplayController.enableMarkerBtns();
         return;
     };
 
@@ -205,12 +269,12 @@ const Game = ((player1, player2) => {
     };
 
     const makeMove = (row, col, player, cellId) => {
-        const validMove = GameBoard.updateBoard(row, col, player.marker);
+        const validMove = GameBoard.updateBoard(row, col, player.getMarker());
         if(!validMove) {
             return;
         }
-        GameDisplayController.fillCell(cellId, player.marker);
-        if(GameBoard.checkWin(player.marker)) { 
+        GameDisplayController.fillCell(cellId, player.getMarker());
+        if(GameBoard.checkWin(player.getMarker())) { 
             winner = player;
             player.incrementWins();
             GameDisplayController.updateWinner(winner);
@@ -245,13 +309,33 @@ gameBoard.addEventListener("click", (event) => {
     }
 });
 
-gameCells.forEach((cell) => {
-    cell.addEventListener("click", (event) => {
+gameCells.forEach(cell => {
+    cell.addEventListener("click", () => {
         if(gameBoard.classList.contains("disabled")) {
             return;
         }
         const currentPlayer = Game.getPlayer1Turn() ? player1 : player2;
         Game.makeMove(cell.dataset.cellRow, cell.dataset.cellCol, currentPlayer, cell.id);
+    });
+});
+
+markerBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+        const newMarker = prompt("Enter a new marker");
+        console.log(btn.dataset.player)
+        switch (btn.dataset.player) {
+            case 'player1':
+                player1.setMarker(newMarker);
+                GameDisplayController.updateMarker('player1', newMarker);
+                break;
+            case 'player2':
+                player2.setMarker(newMarker);
+                GameDisplayController.updateMarker('player2', newMarker);
+                break;
+            default:
+                console.error("Unknown player");
+                break;
+        }
     });
 });
 
