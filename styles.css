@@ -177,7 +177,6 @@ main {
 	row-gap: 0.25rem;
 }
 
-/* TODO: When marker placed, make bounce type animation */
 .playerMarker {
 	font-size: 4.5rem;
 }
@@ -212,6 +211,10 @@ main {
 
 #gameBoard.disabled:hover > * {
 	cursor: not-allowed;
+}
+
+#gameBoard > .winningCell {
+	background: rgb(160, 235, 160);
 }
 
 #winnerInfo {

@@ -71,13 +71,17 @@ const GameBoard = (() => {
     };
 
     const checkWin = (marker) => {
+        let winningCells = [];
         const checkHorizontal = () => {
-            for(let row of gameBoard) {
-                if(row.every(value => value === marker)) {
+            for(let row = 0; row < gameBoard.length; row++) {
+                if(gameBoard[row].every(value => value === marker)) {
+                    winningCells.push([row, 0], [row, 1], [row, 2]);
+                    GameDisplayController.showWinningCells(winningCells);
                     Game.endGame();
                     return true;
                 }
             }
+            winningCells = [];
             return false;
         };
 
@@ -85,23 +89,35 @@ const GameBoard = (() => {
             for(let col = 0; col < gameBoard[0].length; col++) {
                 for(let row = 0; row < gameBoard.length; row++) {
                     if(gameBoard[row][col] !== marker) {
+                        winningCells = [];
                         break;
                     }
+                    winningCells.push([row, col]);
                     if(row === 2) {
+                        GameDisplayController.showWinningCells(winningCells);
                         Game.endGame();
                         return true;
                     }
                 }
             }
+            winningCells = [];
             return false;
         };
 
         const checkDiagonal = () => {
-            if((gameBoard[0][0] === marker && gameBoard[1][1] === marker && gameBoard[2][2] === marker) || 
-            (gameBoard[0][2] === marker && gameBoard[1][1] === marker && gameBoard[2][0] === marker)) {
+            if(gameBoard[0][0] === marker && gameBoard[1][1] === marker && gameBoard[2][2] === marker) {
+                winningCells = [[0,0], [1,1], [2,2]];
+                GameDisplayController.showWinningCells(winningCells);
+                Game.endGame();
+                return true;
+            } 
+            if (gameBoard[0][2] === marker && gameBoard[1][1] === marker && gameBoard[2][0] === marker) {
+                winningCells = [[0,2], [1,1], [2,0]];
+                GameDisplayController.showWinningCells(winningCells);
                 Game.endGame();
                 return true;
             }
+            winningCells = [];
             return false;
         };
 
@@ -117,7 +133,6 @@ const GameBoard = (() => {
 })();
 
 const GameDisplayController = (() => {
-    // TODO: On win. highlight winning cells (highlight color TBD)
     const updateWinner = (player = null) => {
         if(player === null) {
             // Reset and hide text
@@ -152,10 +167,18 @@ const GameDisplayController = (() => {
         cellElement.innerText = marker
     };
 
+    const showWinningCells = (winningCells) => {
+        winningCells.forEach(cell => {
+            const winningCellElement = document.querySelector(`[data-cell-row="${cell[0]}"][data-cell-col="${cell[1]}"]`);
+            winningCellElement.classList.add('winningCell');
+        });
+    };
+
     const resetBoard = () => {
         gameCells.forEach(cell => {
             cell.innerText = null;
             cell.className = 'gameBoardCell';
+            cell.classList.remove('winningCell');
         });
     };
 
@@ -198,6 +221,7 @@ const GameDisplayController = (() => {
     return { 
         updateWinner, 
         fillCell,
+        showWinningCells,
         resetBoard,
         updateMarker,
         enableGameBoard, 
